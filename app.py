@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import ply.lex as lex_module
+import requests
 
 from dictionary import (
     classify_word, translate_word, full_dict_en_es,
@@ -106,7 +107,6 @@ def new_node(label, parent=None):
 def trans(word):
     return translate_word(word) or word
 
-# REGLAS
 def p_sentence(p):
     '''sentence : subject predicate
                 | subject predicate complement
@@ -165,6 +165,13 @@ def p_predicate_verb_adverb(p):
     node = new_node('predicate')
     new_node(f'VERBO: {p[1]}', node)
     new_node(f'ADVERBIO: {p[2]}', node)
+    p[0] = f"{trans(p[1])} {trans(p[2])}"
+
+def p_predicate_verb_pronoun(p):
+    'predicate : VERBO PRONOMBRE'
+    node = new_node('predicate')
+    new_node(f'VERBO: {p[1]}', node)
+    new_node(f'PRONOMBRE: {p[2]}', node)
     p[0] = f"{trans(p[1])} {trans(p[2])}"
 
 def p_complement_noun(p):
@@ -243,7 +250,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/translate', methods=['POST'])
-def translate():
+def do_translate():
     data = request.get_json()
     text = data.get('text', '')
 
@@ -273,26 +280,24 @@ def translate():
         if line.strip():
             parser.parse(line.strip(), lexer=lexer)
 
-    # Intentar traducción con LibreTranslate
-try:
-    import requests
-    response = requests.post(
-        "https://libretranslate.com/translate",
-        json={
-            "q": text,
-            "source": "en",
-            "target": "es",
-            "format": "text"
-        },
-        headers={"Content-Type": "application/json"},
-        timeout=5
-    )
-    if response.status_code == 200:
-        translation = response.json().get("translatedText", "")
-    else:
+    # Traducción con MyMemory API
+    try:
+        response = requests.get(
+            "https://api.mymemory.translated.net/get",
+            params={
+                "q": text,
+                "langpair": "en|es"
+            },
+            timeout=5
+        )
+        if response.status_code == 200:
+            translation = response.json().get("responseData", {}).get("translatedText", "")
+            if not translation:
+                translation = ' '.join(translation_parts)
+        else:
+            translation = ' '.join(translation_parts)
+    except:
         translation = ' '.join(translation_parts)
-except:
-    translation = ' '.join(translation_parts)
 
     return jsonify({
         'tokens': tokens_list,

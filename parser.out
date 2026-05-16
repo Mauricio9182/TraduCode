@@ -20,29 +20,30 @@ Rule 8     subject -> SUSTANTIVO
 Rule 9     predicate -> VERBO
 Rule 10    predicate -> VERBO complement
 Rule 11    predicate -> VERBO ADVERBIO
-Rule 12    complement -> SUSTANTIVO
-Rule 13    complement -> ARTICULO SUSTANTIVO
-Rule 14    complement -> ADJETIVO
-Rule 15    complement -> PREPOSICION ARTICULO SUSTANTIVO
-Rule 16    complement -> PREPOSICION SUSTANTIVO
-Rule 17    complement -> ADVERBIO
-Rule 18    interjection -> INTERJECCION
-Rule 19    empty -> <empty>
+Rule 12    predicate -> VERBO PRONOMBRE
+Rule 13    complement -> SUSTANTIVO
+Rule 14    complement -> ARTICULO SUSTANTIVO
+Rule 15    complement -> ADJETIVO
+Rule 16    complement -> PREPOSICION ARTICULO SUSTANTIVO
+Rule 17    complement -> PREPOSICION SUSTANTIVO
+Rule 18    complement -> ADVERBIO
+Rule 19    interjection -> INTERJECCION
+Rule 20    empty -> <empty>
 
 Terminals, with rules where they appear
 
-ADJETIVO             : 7 14
-ADVERBIO             : 11 17
-ARTICULO             : 6 7 13 15
+ADJETIVO             : 7 15
+ADVERBIO             : 11 18
+ARTICULO             : 6 7 14 16
 CONJUNCION           : 
 CONTRACCION          : 
 DESCONOCIDO          : 
-INTERJECCION         : 18
-PREPOSICION          : 15 16
-PRONOMBRE            : 5
+INTERJECCION         : 19
+PREPOSICION          : 16 17
+PRONOMBRE            : 5 12
 PUNTUACION           : 4
-SUSTANTIVO           : 6 7 8 12 13 15 16
-VERBO                : 9 10 11
+SUSTANTIVO           : 6 7 8 13 14 16 17
+VERBO                : 9 10 11 12
 error                : 
 
 Nonterminals, with rules where they appear
@@ -67,7 +68,7 @@ state 0
     (6) subject -> . ARTICULO SUSTANTIVO
     (7) subject -> . ARTICULO ADJETIVO SUSTANTIVO
     (8) subject -> . SUSTANTIVO
-    (18) interjection -> . INTERJECCION
+    (19) interjection -> . INTERJECCION
 
     PRONOMBRE       shift and go to state 4
     ARTICULO        shift and go to state 5
@@ -93,6 +94,7 @@ state 2
     (9) predicate -> . VERBO
     (10) predicate -> . VERBO complement
     (11) predicate -> . VERBO ADVERBIO
+    (12) predicate -> . VERBO PRONOMBRE
 
     VERBO           shift and go to state 10
 
@@ -131,10 +133,10 @@ state 6
 
 state 7
 
-    (18) interjection -> INTERJECCION .
+    (19) interjection -> INTERJECCION .
 
-    PUNTUACION      reduce using rule 18 (interjection -> INTERJECCION .)
-    $end            reduce using rule 18 (interjection -> INTERJECCION .)
+    PUNTUACION      reduce using rule 19 (interjection -> INTERJECCION .)
+    $end            reduce using rule 19 (interjection -> INTERJECCION .)
 
 
 state 8
@@ -149,12 +151,12 @@ state 9
 
     (1) sentence -> subject predicate .
     (2) sentence -> subject predicate . complement
-    (12) complement -> . SUSTANTIVO
-    (13) complement -> . ARTICULO SUSTANTIVO
-    (14) complement -> . ADJETIVO
-    (15) complement -> . PREPOSICION ARTICULO SUSTANTIVO
-    (16) complement -> . PREPOSICION SUSTANTIVO
-    (17) complement -> . ADVERBIO
+    (13) complement -> . SUSTANTIVO
+    (14) complement -> . ARTICULO SUSTANTIVO
+    (15) complement -> . ADJETIVO
+    (16) complement -> . PREPOSICION ARTICULO SUSTANTIVO
+    (17) complement -> . PREPOSICION SUSTANTIVO
+    (18) complement -> . ADVERBIO
 
     PUNTUACION      reduce using rule 1 (sentence -> subject predicate .)
     $end            reduce using rule 1 (sentence -> subject predicate .)
@@ -171,12 +173,13 @@ state 10
     (9) predicate -> VERBO .
     (10) predicate -> VERBO . complement
     (11) predicate -> VERBO . ADVERBIO
-    (12) complement -> . SUSTANTIVO
-    (13) complement -> . ARTICULO SUSTANTIVO
-    (14) complement -> . ADJETIVO
-    (15) complement -> . PREPOSICION ARTICULO SUSTANTIVO
-    (16) complement -> . PREPOSICION SUSTANTIVO
-    (17) complement -> . ADVERBIO
+    (12) predicate -> VERBO . PRONOMBRE
+    (13) complement -> . SUSTANTIVO
+    (14) complement -> . ARTICULO SUSTANTIVO
+    (15) complement -> . ADJETIVO
+    (16) complement -> . PREPOSICION ARTICULO SUSTANTIVO
+    (17) complement -> . PREPOSICION SUSTANTIVO
+    (18) complement -> . ADVERBIO
 
   ! shift/reduce conflict for ADVERBIO resolved as shift
   ! shift/reduce conflict for SUSTANTIVO resolved as shift
@@ -186,6 +189,7 @@ state 10
     PUNTUACION      reduce using rule 9 (predicate -> VERBO .)
     $end            reduce using rule 9 (predicate -> VERBO .)
     ADVERBIO        shift and go to state 20
+    PRONOMBRE       shift and go to state 21
     SUSTANTIVO      shift and go to state 14
     ARTICULO        shift and go to state 15
     ADJETIVO        shift and go to state 16
@@ -210,7 +214,7 @@ state 12
 
     (7) subject -> ARTICULO ADJETIVO . SUSTANTIVO
 
-    SUSTANTIVO      shift and go to state 21
+    SUSTANTIVO      shift and go to state 22
 
 
 state 13
@@ -223,52 +227,52 @@ state 13
 
 state 14
 
-    (12) complement -> SUSTANTIVO .
+    (13) complement -> SUSTANTIVO .
 
-    PUNTUACION      reduce using rule 12 (complement -> SUSTANTIVO .)
-    $end            reduce using rule 12 (complement -> SUSTANTIVO .)
-    SUSTANTIVO      reduce using rule 12 (complement -> SUSTANTIVO .)
-    ARTICULO        reduce using rule 12 (complement -> SUSTANTIVO .)
-    ADJETIVO        reduce using rule 12 (complement -> SUSTANTIVO .)
-    PREPOSICION     reduce using rule 12 (complement -> SUSTANTIVO .)
-    ADVERBIO        reduce using rule 12 (complement -> SUSTANTIVO .)
+    PUNTUACION      reduce using rule 13 (complement -> SUSTANTIVO .)
+    $end            reduce using rule 13 (complement -> SUSTANTIVO .)
+    SUSTANTIVO      reduce using rule 13 (complement -> SUSTANTIVO .)
+    ARTICULO        reduce using rule 13 (complement -> SUSTANTIVO .)
+    ADJETIVO        reduce using rule 13 (complement -> SUSTANTIVO .)
+    PREPOSICION     reduce using rule 13 (complement -> SUSTANTIVO .)
+    ADVERBIO        reduce using rule 13 (complement -> SUSTANTIVO .)
 
 
 state 15
 
-    (13) complement -> ARTICULO . SUSTANTIVO
+    (14) complement -> ARTICULO . SUSTANTIVO
 
-    SUSTANTIVO      shift and go to state 22
+    SUSTANTIVO      shift and go to state 23
 
 
 state 16
 
-    (14) complement -> ADJETIVO .
+    (15) complement -> ADJETIVO .
 
-    PUNTUACION      reduce using rule 14 (complement -> ADJETIVO .)
-    $end            reduce using rule 14 (complement -> ADJETIVO .)
-    SUSTANTIVO      reduce using rule 14 (complement -> ADJETIVO .)
-    ARTICULO        reduce using rule 14 (complement -> ADJETIVO .)
-    ADJETIVO        reduce using rule 14 (complement -> ADJETIVO .)
-    PREPOSICION     reduce using rule 14 (complement -> ADJETIVO .)
-    ADVERBIO        reduce using rule 14 (complement -> ADJETIVO .)
+    PUNTUACION      reduce using rule 15 (complement -> ADJETIVO .)
+    $end            reduce using rule 15 (complement -> ADJETIVO .)
+    SUSTANTIVO      reduce using rule 15 (complement -> ADJETIVO .)
+    ARTICULO        reduce using rule 15 (complement -> ADJETIVO .)
+    ADJETIVO        reduce using rule 15 (complement -> ADJETIVO .)
+    PREPOSICION     reduce using rule 15 (complement -> ADJETIVO .)
+    ADVERBIO        reduce using rule 15 (complement -> ADJETIVO .)
 
 
 state 17
 
-    (15) complement -> PREPOSICION . ARTICULO SUSTANTIVO
-    (16) complement -> PREPOSICION . SUSTANTIVO
+    (16) complement -> PREPOSICION . ARTICULO SUSTANTIVO
+    (17) complement -> PREPOSICION . SUSTANTIVO
 
-    ARTICULO        shift and go to state 23
-    SUSTANTIVO      shift and go to state 24
+    ARTICULO        shift and go to state 24
+    SUSTANTIVO      shift and go to state 25
 
 
 state 18
 
-    (17) complement -> ADVERBIO .
+    (18) complement -> ADVERBIO .
 
-    PUNTUACION      reduce using rule 17 (complement -> ADVERBIO .)
-    $end            reduce using rule 17 (complement -> ADVERBIO .)
+    PUNTUACION      reduce using rule 18 (complement -> ADVERBIO .)
+    $end            reduce using rule 18 (complement -> ADVERBIO .)
 
 
 state 19
@@ -287,7 +291,7 @@ state 19
 state 20
 
     (11) predicate -> VERBO ADVERBIO .
-    (17) complement -> ADVERBIO .
+    (18) complement -> ADVERBIO .
 
   ! reduce/reduce conflict for SUSTANTIVO resolved using rule 11 (predicate -> VERBO ADVERBIO .)
   ! reduce/reduce conflict for ARTICULO resolved using rule 11 (predicate -> VERBO ADVERBIO .)
@@ -304,66 +308,79 @@ state 20
     PUNTUACION      reduce using rule 11 (predicate -> VERBO ADVERBIO .)
     $end            reduce using rule 11 (predicate -> VERBO ADVERBIO .)
 
-  ! SUSTANTIVO      [ reduce using rule 17 (complement -> ADVERBIO .) ]
-  ! ARTICULO        [ reduce using rule 17 (complement -> ADVERBIO .) ]
-  ! ADJETIVO        [ reduce using rule 17 (complement -> ADVERBIO .) ]
-  ! PREPOSICION     [ reduce using rule 17 (complement -> ADVERBIO .) ]
-  ! ADVERBIO        [ reduce using rule 17 (complement -> ADVERBIO .) ]
-  ! PUNTUACION      [ reduce using rule 17 (complement -> ADVERBIO .) ]
-  ! $end            [ reduce using rule 17 (complement -> ADVERBIO .) ]
+  ! SUSTANTIVO      [ reduce using rule 18 (complement -> ADVERBIO .) ]
+  ! ARTICULO        [ reduce using rule 18 (complement -> ADVERBIO .) ]
+  ! ADJETIVO        [ reduce using rule 18 (complement -> ADVERBIO .) ]
+  ! PREPOSICION     [ reduce using rule 18 (complement -> ADVERBIO .) ]
+  ! ADVERBIO        [ reduce using rule 18 (complement -> ADVERBIO .) ]
+  ! PUNTUACION      [ reduce using rule 18 (complement -> ADVERBIO .) ]
+  ! $end            [ reduce using rule 18 (complement -> ADVERBIO .) ]
 
 
 state 21
+
+    (12) predicate -> VERBO PRONOMBRE .
+
+    SUSTANTIVO      reduce using rule 12 (predicate -> VERBO PRONOMBRE .)
+    ARTICULO        reduce using rule 12 (predicate -> VERBO PRONOMBRE .)
+    ADJETIVO        reduce using rule 12 (predicate -> VERBO PRONOMBRE .)
+    PREPOSICION     reduce using rule 12 (predicate -> VERBO PRONOMBRE .)
+    ADVERBIO        reduce using rule 12 (predicate -> VERBO PRONOMBRE .)
+    PUNTUACION      reduce using rule 12 (predicate -> VERBO PRONOMBRE .)
+    $end            reduce using rule 12 (predicate -> VERBO PRONOMBRE .)
+
+
+state 22
 
     (7) subject -> ARTICULO ADJETIVO SUSTANTIVO .
 
     VERBO           reduce using rule 7 (subject -> ARTICULO ADJETIVO SUSTANTIVO .)
 
 
-state 22
-
-    (13) complement -> ARTICULO SUSTANTIVO .
-
-    PUNTUACION      reduce using rule 13 (complement -> ARTICULO SUSTANTIVO .)
-    $end            reduce using rule 13 (complement -> ARTICULO SUSTANTIVO .)
-    SUSTANTIVO      reduce using rule 13 (complement -> ARTICULO SUSTANTIVO .)
-    ARTICULO        reduce using rule 13 (complement -> ARTICULO SUSTANTIVO .)
-    ADJETIVO        reduce using rule 13 (complement -> ARTICULO SUSTANTIVO .)
-    PREPOSICION     reduce using rule 13 (complement -> ARTICULO SUSTANTIVO .)
-    ADVERBIO        reduce using rule 13 (complement -> ARTICULO SUSTANTIVO .)
-
-
 state 23
 
-    (15) complement -> PREPOSICION ARTICULO . SUSTANTIVO
+    (14) complement -> ARTICULO SUSTANTIVO .
 
-    SUSTANTIVO      shift and go to state 25
+    PUNTUACION      reduce using rule 14 (complement -> ARTICULO SUSTANTIVO .)
+    $end            reduce using rule 14 (complement -> ARTICULO SUSTANTIVO .)
+    SUSTANTIVO      reduce using rule 14 (complement -> ARTICULO SUSTANTIVO .)
+    ARTICULO        reduce using rule 14 (complement -> ARTICULO SUSTANTIVO .)
+    ADJETIVO        reduce using rule 14 (complement -> ARTICULO SUSTANTIVO .)
+    PREPOSICION     reduce using rule 14 (complement -> ARTICULO SUSTANTIVO .)
+    ADVERBIO        reduce using rule 14 (complement -> ARTICULO SUSTANTIVO .)
 
 
 state 24
 
-    (16) complement -> PREPOSICION SUSTANTIVO .
+    (16) complement -> PREPOSICION ARTICULO . SUSTANTIVO
 
-    PUNTUACION      reduce using rule 16 (complement -> PREPOSICION SUSTANTIVO .)
-    $end            reduce using rule 16 (complement -> PREPOSICION SUSTANTIVO .)
-    SUSTANTIVO      reduce using rule 16 (complement -> PREPOSICION SUSTANTIVO .)
-    ARTICULO        reduce using rule 16 (complement -> PREPOSICION SUSTANTIVO .)
-    ADJETIVO        reduce using rule 16 (complement -> PREPOSICION SUSTANTIVO .)
-    PREPOSICION     reduce using rule 16 (complement -> PREPOSICION SUSTANTIVO .)
-    ADVERBIO        reduce using rule 16 (complement -> PREPOSICION SUSTANTIVO .)
+    SUSTANTIVO      shift and go to state 26
 
 
 state 25
 
-    (15) complement -> PREPOSICION ARTICULO SUSTANTIVO .
+    (17) complement -> PREPOSICION SUSTANTIVO .
 
-    PUNTUACION      reduce using rule 15 (complement -> PREPOSICION ARTICULO SUSTANTIVO .)
-    $end            reduce using rule 15 (complement -> PREPOSICION ARTICULO SUSTANTIVO .)
-    SUSTANTIVO      reduce using rule 15 (complement -> PREPOSICION ARTICULO SUSTANTIVO .)
-    ARTICULO        reduce using rule 15 (complement -> PREPOSICION ARTICULO SUSTANTIVO .)
-    ADJETIVO        reduce using rule 15 (complement -> PREPOSICION ARTICULO SUSTANTIVO .)
-    PREPOSICION     reduce using rule 15 (complement -> PREPOSICION ARTICULO SUSTANTIVO .)
-    ADVERBIO        reduce using rule 15 (complement -> PREPOSICION ARTICULO SUSTANTIVO .)
+    PUNTUACION      reduce using rule 17 (complement -> PREPOSICION SUSTANTIVO .)
+    $end            reduce using rule 17 (complement -> PREPOSICION SUSTANTIVO .)
+    SUSTANTIVO      reduce using rule 17 (complement -> PREPOSICION SUSTANTIVO .)
+    ARTICULO        reduce using rule 17 (complement -> PREPOSICION SUSTANTIVO .)
+    ADJETIVO        reduce using rule 17 (complement -> PREPOSICION SUSTANTIVO .)
+    PREPOSICION     reduce using rule 17 (complement -> PREPOSICION SUSTANTIVO .)
+    ADVERBIO        reduce using rule 17 (complement -> PREPOSICION SUSTANTIVO .)
+
+
+state 26
+
+    (16) complement -> PREPOSICION ARTICULO SUSTANTIVO .
+
+    PUNTUACION      reduce using rule 16 (complement -> PREPOSICION ARTICULO SUSTANTIVO .)
+    $end            reduce using rule 16 (complement -> PREPOSICION ARTICULO SUSTANTIVO .)
+    SUSTANTIVO      reduce using rule 16 (complement -> PREPOSICION ARTICULO SUSTANTIVO .)
+    ARTICULO        reduce using rule 16 (complement -> PREPOSICION ARTICULO SUSTANTIVO .)
+    ADJETIVO        reduce using rule 16 (complement -> PREPOSICION ARTICULO SUSTANTIVO .)
+    PREPOSICION     reduce using rule 16 (complement -> PREPOSICION ARTICULO SUSTANTIVO .)
+    ADVERBIO        reduce using rule 16 (complement -> PREPOSICION ARTICULO SUSTANTIVO .)
 
 WARNING: 
 WARNING: Conflicts:
