@@ -322,6 +322,7 @@
             <div class="tab" onclick="showTab('symbols', event)">📋 TABLA DE SÍMBOLOS</div>
             <div class="tab" onclick="showTab('lex-errors', event)">⚠️ ERR. LÉXICOS</div>
             <div class="tab" onclick="showTab('syn-errors', event)">❌ ERR. SINTÁCTICOS</div>
+            <div class="tab" onclick="showTab('sem-errors', event)">🧠 ERR. SEMÁNTICOS</div>
             <div class="tab" onclick="showTab('tree', event)">🌳 ÁRBOL</div>
         </div>
 
@@ -360,6 +361,23 @@
                 <tbody id="syn-body"></tbody>
             </table>
         </div>
+
+        <!-- ERRORES SEMÁNTICOS -->
+<div id="tab-sem-errors" class="tab-content">
+    <div class="empty-msg" id="sem-empty">✅ Sin errores semánticos</div>
+
+    <table id="sem-table" style="display:none">
+        <thead>
+            <tr>
+                <th>TIPO</th>
+                <th>PALABRA</th>
+                <th>LÍNEA</th>
+                <th>DESCRIPCIÓN</th>
+            </tr>
+        </thead>
+        <tbody id="sem-body"></tbody>
+    </table>
+</div>
 
         <!-- ÁRBOL -->
         <div id="tab-tree" class="tab-content" style="padding:0">
@@ -526,6 +544,32 @@ function renderResults(data) {
         document.getElementById('syn-empty').style.display = 'block';
         document.getElementById('syn-table').style.display = 'none';
     }
+
+    // ERRORES SEMÁNTICOS
+const sembody = document.getElementById('sem-body');
+sembody.innerHTML = '';
+
+if (data.semantic_errors.length > 0) {
+
+    document.getElementById('sem-empty').style.display = 'none';
+    document.getElementById('sem-table').style.display = 'table';
+
+    data.semantic_errors.forEach(e => {
+
+        sembody.innerHTML += `
+        <tr>
+            <td><span class="badge badge-error">${e.tipo}</span></td>
+            <td>${e.palabra}</td>
+            <td>${e.linea}</td>
+            <td>${e.descripcion}</td>
+        </tr>`;
+    });
+
+} else {
+
+    document.getElementById('sem-empty').style.display = 'block';
+    document.getElementById('sem-table').style.display = 'none';
+}
 
     // ÁRBOL
     if (data.tree_nodes && data.tree_nodes.length > 0) {

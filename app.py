@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 import ply.lex as lex_module
 import requests
-
+from semantic import validate_semantics
 from dictionary import (
     classify_word, translate_word, full_dict_en_es,
     nouns, verbs, adjectives, articles, pronouns,
@@ -280,6 +280,9 @@ def do_translate():
         if line.strip():
             parser.parse(line.strip(), lexer=lexer)
 
+    # VALIDAR SEMÁNTICA
+    semantic_errors = validate_semantics(tokens_list)    
+
     # Traducción con MyMemory API
     try:
         response = requests.get(
@@ -304,6 +307,7 @@ def do_translate():
         'symbols': list(symbol_table.values()),
         'lexic_errors': error_table,
         'syntax_errors': syntax_errors,
+        'semantic_errors': semantic_errors,
         'tree_nodes': tree_nodes,
         'tree_edges': tree_edges,
         'translation': translation,
