@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -46,7 +46,6 @@
             border-bottom: 1px solid #1e3a5f;
         }
         .lang-label { font-size: 13px; font-weight: bold; color: #00d4ff; letter-spacing: 1px; }
-        .lang-flag { font-size: 20px; }
 
         textarea {
             width: 100%;
@@ -110,7 +109,6 @@
             font-size: 11px;
             cursor: pointer;
             transition: all 0.2s;
-            text-align: center;
         }
         .btn-file:hover { background: #00d4ff; color: #0f1923; }
 
@@ -137,10 +135,79 @@
         .status-ok { color: #4aff88; font-size: 12px; }
         .status-err { color: #ff4444; font-size: 12px; }
 
-        /* ANÁLISIS SECTION */
-        .analysis-section {
-            padding: 0 20px 20px;
+        .examples-section {
+            padding: 0 20px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
+
+        .examples-group {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #1e3a5f;
+        }
+
+        .examples-toggle {
+            width: 100%;
+            padding: 12px 16px;
+            background: #1a2332;
+            border: none;
+            cursor: pointer;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .valid-toggle { color: #00d4ff; }
+        .valid-toggle:hover { background: #1e3a5f; }
+        .error-toggle { color: #ff6666; }
+        .error-toggle:hover { background: #2a1a1a; }
+
+        .examples-collapse {
+            display: none;
+            background: #0f1923;
+            padding: 12px 16px;
+            border-top: 1px solid #1e3a5f;
+        }
+        .examples-collapse.open { display: block; }
+
+        .examples-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn-example {
+            background: #1a2332;
+            color: #00d4ff;
+            border: 1px solid #1e3a5f;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-example:hover { background: #00d4ff; color: #0f1923; }
+
+        .btn-example-err {
+            background: #1a1a1a;
+            color: #ff6666;
+            border: 1px solid #5f1e1e;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .btn-example-err:hover { background: #5f1e1e; }
+
+        .analysis-section { padding: 0 20px 20px; }
 
         .analysis-panel {
             background: #1a2332;
@@ -219,38 +286,6 @@
             font-size: 13px;
         }
 
-        .examples-row {
-            padding: 12px 20px;
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            background: #0f1923;
-            border-top: 1px solid #1e3a5f;
-        }
-        .btn-example {
-            background: #1a2332;
-            color: #00d4ff;
-            border: 1px solid #1e3a5f;
-            border-radius: 6px;
-            padding: 6px 12px;
-            font-size: 11px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .btn-example:hover { background: #00d4ff; color: #0f1923; }
-        .btn-example-err {
-            background: #1a1a1a;
-            color: #ff6666;
-            border: 1px solid #5f1e1e;
-            border-radius: 6px;
-            padding: 6px 12px;
-            font-size: 11px;
-            cursor: pointer;
-        }
-        .btn-example-err:hover { background: #5f1e1e; }
-
-        .examples-label { color: #555; font-size: 11px; padding: 4px 0; width: 100%; }
-
         #file-input { display: none; }
     </style>
 </head>
@@ -264,13 +299,10 @@
     <div class="header-right">v1.0 | Python + PLY + Flask</div>
 </div>
 
-<!-- TRADUCTOR -->
 <div class="translator-section">
-    <!-- INGLÉS -->
     <div class="lang-panel">
         <div class="lang-header">
             <span class="lang-label">🇺🇸 ENGLISH</span>
-            <span class="lang-flag"></span>
         </div>
         <textarea id="input-text" placeholder="Write your English text here...&#10;&#10;Example: The dog runs fast"></textarea>
         <div class="panel-footer">
@@ -280,13 +312,12 @@
         </div>
     </div>
 
-    <!-- FLECHA -->
-    <div class="arrow-section">
-        <button class="btn-translate" onclick="runTranslate()" title="Traducir">→</button>
-        <span style="color:#555; font-size:10px; text-align:center">COMPILE<br>&<br>TRANSLATE</span>
-    </div>
+<div class="arrow-section">
+    <button class="btn-translate" onclick="runTranslate()" title="Traducir">→</button>
+    <span style="color:#555; font-size:10px; text-align:center">COMPILE<br>&<br>TRANSLATE</span>
+    <button onclick="swapLanguages()" style="background:#1a2332; color:#00d4ff; border:1px solid #00d4ff; border-radius:8px; padding:6px 10px; font-size:11px; cursor:pointer;" title="Intercambiar idiomas">⇄ SWAP</button>
+</div>
 
-    <!-- ESPAÑOL -->
     <div class="lang-panel">
         <div class="lang-header">
             <span class="lang-label">🇪🇸 ESPAÑOL</span>
@@ -300,61 +331,64 @@
     </div>
 </div>
 
-<!-- EJEMPLOS -->
-<div class="examples-row">
-    <span class="examples-label">✅ EJEMPLOS VÁLIDOS:</span>
-    <button class="btn-example" onclick="loadExample(1)">The dog runs fast</button>
-    <button class="btn-example" onclick="loadExample(2)">She is beautiful</button>
-    <button class="btn-example" onclick="loadExample(3)">I love you</button>
-    <button class="btn-example" onclick="loadExample(4)">The big man goes to the school</button>
-    <button class="btn-example" onclick="loadExample(5)">We eat food together</button>
-    <button class="btn-example" onclick="loadExample(6)">The programmer works on the computer</button>
-    <button class="btn-example" onclick="loadExample(7)">The friend eats pizza</button>
-    <button class="btn-example" onclick="loadExample(8)">The teacher watched the students yesterday</button>
-    <button class="btn-example" onclick="loadExample(9)">We study English at the university</button>
-    <button class="btn-example" onclick="loadExample(10)">The player downloaded the game</button>
-    <button class="btn-example" onclick="loadExample(11)">The engineer drives a truck in the city</button>
-    <button class="btn-example" onclick="loadExample(12)">They listen to music now</button>
-    <button class="btn-example" onclick="loadExample(13)">The doctor helped the child</button>
-    <button class="btn-example" onclick="loadExample(14)">The students practiced English yesterday</button>
-    <button class="btn-example" onclick="loadExample(15)">The boy watches videos on youtube</button>
-    <span class="examples-label" style="margin-top:4px">❌ EJEMPLOS CON ERRORES:</span>
-    <button class="btn-example-err" onclick="loadExample(16)">Error léxico</button>
-    <button class="btn-example-err" onclick="loadExample(17)">Error sintáctico</button>
-    <button class="btn-example-err" onclick="loadExample(18)">Palabra desconocida</button>
+<div class="examples-section">
+    <div class="examples-group">
+        <button class="examples-toggle valid-toggle" onclick="toggleExamples('valid')">
+            ✅ EJEMPLOS VÁLIDOS <span id="valid-arrow">▼</span>
+        </button>
+        <div id="valid-examples" class="examples-collapse">
+            <div class="examples-row">
+                <button class="btn-example" onclick="loadExample(1)">The dog runs fast</button>
+                <button class="btn-example" onclick="loadExample(2)">I love you</button>
+                <button class="btn-example" onclick="loadExample(3)">The big man goes to the school</button>
+                <button class="btn-example" onclick="loadExample(4)">We eat food together</button>
+                <button class="btn-example" onclick="loadExample(5)">The programmer works on the computer</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="examples-group">
+        <button class="examples-toggle error-toggle" onclick="toggleExamples('error')">
+            ❌ EJEMPLOS CON ERRORES <span id="error-arrow">▼</span>
+        </button>
+        <div id="error-examples" class="examples-collapse">
+            <div class="examples-row">
+               <button class="btn-example-err" onclick="loadExample(6)">Error léxico</button>
+<button class="btn-example-err" onclick="loadExample(7)">Error sintáctico</button>
+<button class="btn-example-err" onclick="loadExample(8)">Error semántico</button>
+<button class="btn-example-err" onclick="loadExample(9)">Los 3 errores</button>
+<button class="btn-example-err" onclick="loadExample(10)">I love you</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- ANÁLISIS -->
 <div class="analysis-section">
     <div class="analysis-panel">
         <div class="tabs">
-            <div class="tab active" onclick="showTab('tokens', event)">🔤 TOKENS</div>
-            <div class="tab" onclick="showTab('symbols', event)">📋 TABLA DE SÍMBOLOS</div>
+            <div class="tab active" onclick="showTab('symbols', event)">📋 TABLA DE SÍMBOLOS</div>
             <div class="tab" onclick="showTab('lex-errors', event)">⚠️ ERR. LÉXICOS</div>
             <div class="tab" onclick="showTab('syn-errors', event)">❌ ERR. SINTÁCTICOS</div>
             <div class="tab" onclick="showTab('sem-errors', event)">🧠 ERR. SEMÁNTICOS</div>
             <div class="tab" onclick="showTab('tree', event)">🌳 ÁRBOL</div>
         </div>
 
-        <!-- TOKENS -->
-        <div id="tab-tokens" class="tab-content active">
-            <div class="empty-msg" id="tokens-empty">Traducí un texto para ver los tokens</div>
-            <table id="tokens-table" style="display:none">
-                <thead><tr><th>#</th><th>PALABRA</th><th>CATEGORÍA</th><th>LÍNEA</th></tr></thead>
-                <tbody id="tokens-body"></tbody>
-            </table>
-        </div>
-
-        <!-- SÍMBOLOS -->
-        <div id="tab-symbols" class="tab-content">
-            <div class="empty-msg" id="symbols-empty">No hay símbolos</div>
+        <div id="tab-symbols" class="tab-content active">
+            <div class="empty-msg" id="symbols-empty">Traducí un texto para ver la tabla de símbolos</div>
             <table id="symbols-table" style="display:none">
-                <thead><tr><th>PALABRA</th><th>CATEGORÍA</th><th>TRADUCCIÓN</th><th>LÍNEA</th></tr></thead>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>PALABRA</th>
+                        <th>CATEGORÍA</th>
+                        <th>TRADUCCIÓN</th>
+                        <th>LÍNEA</th>
+                    </tr>
+                </thead>
                 <tbody id="symbols-body"></tbody>
             </table>
         </div>
 
-        <!-- ERRORES LÉXICOS -->
         <div id="tab-lex-errors" class="tab-content">
             <div class="empty-msg" id="lex-empty">✅ Sin errores léxicos</div>
             <table id="lex-table" style="display:none">
@@ -363,7 +397,6 @@
             </table>
         </div>
 
-        <!-- ERRORES SINTÁCTICOS -->
         <div id="tab-syn-errors" class="tab-content">
             <div class="empty-msg" id="syn-empty">✅ Sin errores sintácticos</div>
             <table id="syn-table" style="display:none">
@@ -372,24 +405,14 @@
             </table>
         </div>
 
-        <!-- ERRORES SEMÁNTICOS -->
-<div id="tab-sem-errors" class="tab-content">
-    <div class="empty-msg" id="sem-empty">✅ Sin errores semánticos</div>
+        <div id="tab-sem-errors" class="tab-content">
+            <div class="empty-msg" id="sem-empty">✅ Sin errores semánticos</div>
+            <table id="sem-table" style="display:none">
+                <thead><tr><th>TIPO</th><th>PALABRA</th><th>LÍNEA</th><th>DESCRIPCIÓN</th></tr></thead>
+                <tbody id="sem-body"></tbody>
+            </table>
+        </div>
 
-    <table id="sem-table" style="display:none">
-        <thead>
-            <tr>
-                <th>TIPO</th>
-                <th>PALABRA</th>
-                <th>LÍNEA</th>
-                <th>DESCRIPCIÓN</th>
-            </tr>
-        </thead>
-        <tbody id="sem-body"></tbody>
-    </table>
-</div>
-
-        <!-- ÁRBOL -->
         <div id="tab-tree" class="tab-content" style="padding:0">
             <div class="empty-msg" id="tree-empty" style="padding-top:60px">Traducí un texto válido para ver el árbol</div>
             <div id="tree-container" style="display:none"></div>
@@ -400,40 +423,39 @@
 <script>
 const examples = {
     1: "The dog runs fast",
-    2: "She is beautiful",
-    3: "I love you",
-    4: "The big man goes to the school",
-    5: "We eat food together",
-    6: "The programmer works on the computer",
-    7: "The friend eats pizza",
-    8: "The teacher watched the students yesterday",
-    9: "We study English at the university",
-    10: "The player downloaded the game",
-    11: "The engineer drives a truck in the city",
-    12: "They listen to music now",
-    13: "The doctor helped the child",
-    14: "The students practiced English yesterday",
-    15: "The boy watches videos on youtube",
-    16: "The zorbax run",
-    17: "fast dog the runs",
-    18: "The flurbo runs quickly"
+    2: "I love you",
+    3: "The big man goes to the school",
+    4: "We eat food together",
+    5: "The programmer works on the computer",
+    6: "The zorbax run",
+    7: "fast dog the runs",
+   8: "dog runs to",
+    9: "fast zorbax the",
+    10: "I love you"
 };
 
 function loadExample(n) {
     document.getElementById('input-text').value = examples[n];
 }
 
+function toggleExamples(type) {
+    const collapse = document.getElementById(`${type}-examples`);
+    const arrow = document.getElementById(`${type}-arrow`);
+    collapse.classList.toggle('open');
+    arrow.textContent = collapse.classList.contains('open') ? '▲' : '▼';
+}
+
 function clearAll() {
     document.getElementById('input-text').value = '';
     document.getElementById('translation-output').innerHTML = '<span style="color:#444">La traducción aparecerá aquí...</span>';
-    document.getElementById('tokens-empty').style.display = 'block';
-    document.getElementById('tokens-table').style.display = 'none';
     document.getElementById('symbols-empty').style.display = 'block';
     document.getElementById('symbols-table').style.display = 'none';
     document.getElementById('lex-empty').style.display = 'block';
     document.getElementById('lex-table').style.display = 'none';
     document.getElementById('syn-empty').style.display = 'block';
     document.getElementById('syn-table').style.display = 'none';
+    document.getElementById('sem-empty').style.display = 'block';
+    document.getElementById('sem-table').style.display = 'none';
     document.getElementById('tree-empty').style.display = 'block';
     document.getElementById('tree-container').style.display = 'none';
     document.getElementById('status-bar').innerHTML = '<span style="color:#555">— Esperando traducción...</span>';
@@ -454,8 +476,10 @@ async function loadFile(event) {
     const res = await fetch('/load_file', { method: 'POST', body: formData });
     const data = await res.json();
     if (data.content) {
-        document.getElementById('input-text').value = data.content;
-    }
+    document.getElementById('input-text').value = data.content;
+}
+
+event.target.value = '';
 }
 
 async function runTranslate() {
@@ -483,7 +507,6 @@ async function runTranslate() {
 }
 
 function renderResults(data) {
-    // TRADUCCIÓN
     const output = document.getElementById('translation-output');
     if (data.translation) {
         output.innerHTML = `<span style="color:#4aff88">${data.translation}</span>`;
@@ -491,30 +514,14 @@ function renderResults(data) {
         output.innerHTML = '<span style="color:#ff4444">No se pudo traducir — revisa los errores</span>';
     }
 
-    // TOKENS
-    const tbody = document.getElementById('tokens-body');
-    tbody.innerHTML = '';
-    if (data.tokens.length > 0) {
-        document.getElementById('tokens-empty').style.display = 'none';
-        document.getElementById('tokens-table').style.display = 'table';
-        data.tokens.forEach((t, i) => {
-            tbody.innerHTML += `<tr>
-                <td>${i+1}</td>
-                <td>${t.palabra}</td>
-                <td><span class="badge badge-${t.tipo}">${t.tipo}</span></td>
-                <td>${t.linea}</td>
-            </tr>`;
-        });
-    }
-
-    // SÍMBOLOS
     const sbody = document.getElementById('symbols-body');
     sbody.innerHTML = '';
-    if (data.symbols.length > 0) {
+    if (data.symbols && data.symbols.length > 0) {
         document.getElementById('symbols-empty').style.display = 'none';
         document.getElementById('symbols-table').style.display = 'table';
         data.symbols.forEach(s => {
             sbody.innerHTML += `<tr>
+                <td>${s.numero}</td>
                 <td>${s.palabra}</td>
                 <td><span class="badge badge-${s.categoria}">${s.categoria}</span></td>
                 <td style="color:#4aff88">${s.traduccion}</td>
@@ -526,10 +533,9 @@ function renderResults(data) {
         document.getElementById('symbols-table').style.display = 'none';
     }
 
-    // ERRORES LÉXICOS
     const lbody = document.getElementById('lex-body');
     lbody.innerHTML = '';
-    if (data.lexic_errors.length > 0) {
+    if (data.lexic_errors && data.lexic_errors.length > 0) {
         document.getElementById('lex-empty').style.display = 'none';
         document.getElementById('lex-table').style.display = 'table';
         data.lexic_errors.forEach(e => {
@@ -546,10 +552,9 @@ function renderResults(data) {
         document.getElementById('lex-table').style.display = 'none';
     }
 
-    // ERRORES SINTÁCTICOS
     const synbody = document.getElementById('syn-body');
     synbody.innerHTML = '';
-    if (data.syntax_errors.length > 0) {
+    if (data.syntax_errors && data.syntax_errors.length > 0) {
         document.getElementById('syn-empty').style.display = 'none';
         document.getElementById('syn-table').style.display = 'table';
         data.syntax_errors.forEach(e => {
@@ -565,33 +570,24 @@ function renderResults(data) {
         document.getElementById('syn-table').style.display = 'none';
     }
 
-    // ERRORES SEMÁNTICOS
-const sembody = document.getElementById('sem-body');
-sembody.innerHTML = '';
+    const sembody = document.getElementById('sem-body');
+    sembody.innerHTML = '';
+    if (data.semantic_errors && data.semantic_errors.length > 0) {
+        document.getElementById('sem-empty').style.display = 'none';
+        document.getElementById('sem-table').style.display = 'table';
+        data.semantic_errors.forEach(e => {
+            sembody.innerHTML += `<tr>
+                <td><span class="badge badge-error">${e.tipo}</span></td>
+                <td>${e.palabra}</td>
+                <td>${e.linea}</td>
+                <td>${e.descripcion}</td>
+            </tr>`;
+        });
+    } else {
+        document.getElementById('sem-empty').style.display = 'block';
+        document.getElementById('sem-table').style.display = 'none';
+    }
 
-if (data.semantic_errors.length > 0) {
-
-    document.getElementById('sem-empty').style.display = 'none';
-    document.getElementById('sem-table').style.display = 'table';
-
-    data.semantic_errors.forEach(e => {
-
-        sembody.innerHTML += `
-        <tr>
-            <td><span class="badge badge-error">${e.tipo}</span></td>
-            <td>${e.palabra}</td>
-            <td>${e.linea}</td>
-            <td>${e.descripcion}</td>
-        </tr>`;
-    });
-
-} else {
-
-    document.getElementById('sem-empty').style.display = 'block';
-    document.getElementById('sem-table').style.display = 'none';
-}
-
-    // ÁRBOL
     if (data.tree_nodes && data.tree_nodes.length > 0) {
         document.getElementById('tree-empty').style.display = 'none';
         document.getElementById('tree-container').style.display = 'block';
@@ -601,18 +597,20 @@ if (data.semantic_errors.length > 0) {
         document.getElementById('tree-container').style.display = 'none';
     }
 
-    // STATUS
-    const hasErrors = data.lexic_errors.length > 0 || data.syntax_errors.length > 0;
+    const hasErrors = (data.lexic_errors && data.lexic_errors.length > 0) ||
+                  (data.syntax_errors && data.syntax_errors.length > 0) ||
+                  (data.semantic_errors && data.semantic_errors.length > 0);
     const statusBar = document.getElementById('status-bar');
     if (hasErrors) {
-        statusBar.innerHTML = `
-            <span class="status-err">❌ Errores detectados</span>
-            <span style="color:#555">Léxicos: ${data.lexic_errors.length}</span>
-            <span style="color:#555">Sintácticos: ${data.syntax_errors.length}</span>`;
+       statusBar.innerHTML = `
+    <span class="status-err">❌ Errores detectados</span>
+    <span style="color:#555">Léxicos: ${data.lexic_errors.length}</span>
+    <span style="color:#555">Sintácticos: ${data.syntax_errors.length}</span>
+    <span style="color:#555">Semánticos: ${data.semantic_errors ? data.semantic_errors.length : 0}</span>`;
     } else {
         statusBar.innerHTML = `
             <span class="status-ok">✅ Traducción exitosa</span>
-            <span style="color:#555">Tokens: ${data.tokens.length}</span>
+            <span style="color:#555">Tokens: ${data.symbols.length}</span>
             <span style="color:#555">Palabras: ${data.symbols.length}</span>`;
     }
 }

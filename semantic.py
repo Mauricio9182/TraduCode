@@ -1,3 +1,7 @@
+# =============================================
+# TRADUCODE - ANALIZADOR SEMÁNTICO
+# =============================================
+
 def validate_semantics(tokens):
 
     semantic_errors = []
@@ -5,7 +9,7 @@ def validate_semantics(tokens):
     for i, token in enumerate(tokens):
 
         palabra = token['palabra']
-        tipo = token['tipo']
+        tipo = token['categoria']
         linea = token['linea']
 
         # ADJETIVO como sujeto
@@ -37,15 +41,22 @@ def validate_semantics(tokens):
 
         # INTERJECCION como sujeto
         if i == 0 and tipo == 'INTERJECCION':
-            semantic_errors.append({
-                'tipo': 'Error Semántico',
-                'palabra': palabra,
-                'linea': linea,
-                'descripcion': 'Una interjección no puede ser sujeto'
-            })
+
+            # Permitir saludos como:
+            # Hello friends
+            if len(tokens) > 1 and tokens[1]['categoria'] == 'SUSTANTIVO':
+                pass
+
+            else:
+                semantic_errors.append({
+                    'tipo': 'Error Semántico',
+                    'palabra': palabra,
+                    'linea': linea,
+                    'descripcion': 'Una interjección no puede ser sujeto'
+                })
 
         # PREPOSICION al final
-        if i == len(tokens)-1 and tipo == 'PREPOSICION':
+        if i == len(tokens) - 1 and tipo == 'PREPOSICION':
             semantic_errors.append({
                 'tipo': 'Error Semántico',
                 'palabra': palabra,
