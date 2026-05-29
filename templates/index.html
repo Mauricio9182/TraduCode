@@ -302,7 +302,8 @@
 <div class="translator-section">
     <div class="lang-panel">
         <div class="lang-header">
-            <span class="lang-label">🇺🇸 ENGLISH</span>
+          <!--  <span class="lang-label">🇺🇸 ENGLISH</span> -->
+            <span class="lang-label" id="source-label">🇺🇸 ENGLISH</span>
         </div>
         <textarea id="input-text" placeholder="Write your English text here...&#10;&#10;Example: The dog runs fast"></textarea>
         <div class="panel-footer">
@@ -320,7 +321,8 @@
 
     <div class="lang-panel">
         <div class="lang-header">
-            <span class="lang-label">🇪🇸 ESPAÑOL</span>
+           <!-- <span class="lang-label">🇪🇸 ESPAÑOL</span>-->
+            <span class="lang-label" id="target-label">🇪🇸 ESPAÑOL</span>
         </div>
         <div class="translation-output" id="translation-output">
             <span style="color:#444">La traducción aparecerá aquí...</span>
@@ -654,6 +656,26 @@ function renderTree(nodes, edges) {
             interaction: { dragNodes: true, zoomView: true, dragView: true }
         }
     );
+}
+/* NUEVA FUNCION boton swap*/
+
+    function swapLanguages() {
+    const input = document.getElementById('input-text');
+    const output = document.getElementById('translation-output');
+
+    const sourceLabel = document.getElementById('source-label');
+    const targetLabel = document.getElementById('target-label');
+
+    // Intercambiar texto
+    const tempText = input.value;
+    input.value = output.textContent.trim();
+    output.textContent = tempText;
+
+    // Intercambiar etiquetas
+    const tempLabel = sourceLabel.textContent;
+    sourceLabel.textContent = targetLabel.textContent;
+    targetLabel.textContent = tempLabel;
+
 }
 </script>
 </body>

@@ -6,7 +6,7 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'ADJETIVO ADVERBIO ARTICULO CONJUNCION CONTRACCION DESCONOCIDO INTERJECCION PREPOSICION PRONOMBRE PUNTUACION SUSTANTIVO VERBOsentence : subject predicate\n| subject predicate complement\n| interjection\n| INTERJECCION SUSTANTIVO\n| INTERJECCION SUSTANTIVO PUNTUACION\n| ADVERBIO VERBO PRONOMBRE ADVERBIO\n| ADVERBIO VERBO PRONOMBRE ADVERBIO PUNTUACION\n| sentence PUNTUACIONsubject : PRONOMBREsubject : ARTICULO SUSTANTIVOsubject : ARTICULO ADJETIVO SUSTANTIVOsubject : SUSTANTIVOpredicate : VERBOpredicate : VERBO complementpredicate : VERBO ADVERBIOpredicate : VERBO PRONOMBREcomplement : SUSTANTIVOcomplement : ARTICULO SUSTANTIVOcomplement : ADJETIVOcomplement : PREPOSICION ARTICULO SUSTANTIVOcomplement : PREPOSICION SUSTANTIVOcomplement : ADVERBIOinterjection : INTERJECCIONempty :'
+_lr_signature = 'ADJETIVO ADVERBIO ARTICULO CONJUNCION CONTRACCION DESCONOCIDO INTERJECCION PREPOSICION PRONOMBRE PUNTUACION SUSTANTIVO VERBOsentence : subject predicate\n                | subject predicate complement\n                | interjection\n                | INTERJECCION SUSTANTIVO\n                | INTERJECCION SUSTANTIVO PUNTUACION\n                | ADVERBIO VERBO PRONOMBRE ADVERBIO\n                | ADVERBIO VERBO PRONOMBRE ADVERBIO PUNTUACION\n                | sentence PUNTUACIONsubject : PRONOMBREsubject : ARTICULO SUSTANTIVOsubject : ARTICULO ADJETIVO SUSTANTIVOsubject : SUSTANTIVOpredicate : VERBOpredicate : VERBO complementpredicate : VERBO ADVERBIOpredicate : VERBO PRONOMBREcomplement : SUSTANTIVOcomplement : ARTICULO SUSTANTIVOcomplement : ADJETIVOcomplement : PREPOSICION ARTICULO SUSTANTIVOcomplement : PREPOSICION SUSTANTIVOcomplement : ADVERBIOinterjection : INTERJECCIONempty :'
     
 _lr_action_items = {'INTERJECCION':([0,],[4,]),'ADVERBIO':([0,10,11,17,19,22,23,24,26,28,30,32,],[6,21,23,-17,-19,-14,-15,-16,31,-18,-21,-20,]),'PRONOMBRE':([0,11,13,],[7,24,26,]),'ARTICULO':([0,10,11,17,19,20,22,23,24,28,30,32,],[8,18,18,-17,-19,29,-14,-15,-16,-18,-21,-20,]),'SUSTANTIVO':([0,4,8,10,11,15,17,18,19,20,22,23,24,28,29,30,32,],[5,12,14,17,17,27,-17,28,-19,30,-14,-15,-16,-18,32,-21,-20,]),'$end':([1,3,4,9,10,11,12,16,17,19,21,22,23,24,25,28,30,31,32,33,],[0,-3,-23,-8,-1,-13,-4,-2,-17,-19,-22,-14,-15,-16,-5,-18,-21,-6,-20,-7,]),'PUNTUACION':([1,3,4,9,10,11,12,16,17,19,21,22,23,24,25,28,30,31,32,33,],[9,-3,-23,-8,-1,-13,25,-2,-17,-19,-22,-14,-15,-16,-5,-18,-21,33,-20,-7,]),'VERBO':([2,5,6,7,14,27,],[11,-12,13,-9,-10,-11,]),'ADJETIVO':([8,10,11,17,19,22,23,24,28,30,32,],[15,19,19,-17,-19,-14,-15,-16,-18,-21,-20,]),'PREPOSICION':([10,11,17,19,22,23,24,28,30,32,],[20,20,-17,-19,-14,-15,-16,-18,-21,-20,]),}
 
@@ -27,28 +27,28 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> sentence","S'",1,None,None,None),
-  ('sentence -> subject predicate','sentence',2,'p_sentence','app.py',104),
-  ('sentence -> subject predicate complement','sentence',3,'p_sentence','app.py',105),
-  ('sentence -> interjection','sentence',1,'p_sentence','app.py',106),
-  ('sentence -> INTERJECCION SUSTANTIVO','sentence',2,'p_sentence','app.py',107),
-  ('sentence -> INTERJECCION SUSTANTIVO PUNTUACION','sentence',3,'p_sentence','app.py',108),
-  ('sentence -> ADVERBIO VERBO PRONOMBRE ADVERBIO','sentence',4,'p_sentence','app.py',109),
-  ('sentence -> ADVERBIO VERBO PRONOMBRE ADVERBIO PUNTUACION','sentence',5,'p_sentence','app.py',110),
-  ('sentence -> sentence PUNTUACION','sentence',2,'p_sentence','app.py',111),
-  ('subject -> PRONOMBRE','subject',1,'p_subject_pronoun','app.py',129),
-  ('subject -> ARTICULO SUSTANTIVO','subject',2,'p_subject_article_noun','app.py',135),
-  ('subject -> ARTICULO ADJETIVO SUSTANTIVO','subject',3,'p_subject_article_adj_noun','app.py',142),
-  ('subject -> SUSTANTIVO','subject',1,'p_subject_noun','app.py',150),
-  ('predicate -> VERBO','predicate',1,'p_predicate_verb','app.py',156),
-  ('predicate -> VERBO complement','predicate',2,'p_predicate_verb_complement','app.py',162),
-  ('predicate -> VERBO ADVERBIO','predicate',2,'p_predicate_verb_adverb','app.py',170),
-  ('predicate -> VERBO PRONOMBRE','predicate',2,'p_predicate_verb_pronoun','app.py',177),
-  ('complement -> SUSTANTIVO','complement',1,'p_complement_noun','app.py',184),
-  ('complement -> ARTICULO SUSTANTIVO','complement',2,'p_complement_article_noun','app.py',190),
-  ('complement -> ADJETIVO','complement',1,'p_complement_adj','app.py',197),
-  ('complement -> PREPOSICION ARTICULO SUSTANTIVO','complement',3,'p_complement_prep_article_noun','app.py',203),
-  ('complement -> PREPOSICION SUSTANTIVO','complement',2,'p_complement_prep_noun','app.py',211),
-  ('complement -> ADVERBIO','complement',1,'p_complement_adverb','app.py',218),
-  ('interjection -> INTERJECCION','interjection',1,'p_interjection','app.py',224),
-  ('empty -> <empty>','empty',0,'p_empty','app.py',230),
+  ('sentence -> subject predicate','sentence',2,'p_sentence','app.py',125),
+  ('sentence -> subject predicate complement','sentence',3,'p_sentence','app.py',126),
+  ('sentence -> interjection','sentence',1,'p_sentence','app.py',127),
+  ('sentence -> INTERJECCION SUSTANTIVO','sentence',2,'p_sentence','app.py',128),
+  ('sentence -> INTERJECCION SUSTANTIVO PUNTUACION','sentence',3,'p_sentence','app.py',129),
+  ('sentence -> ADVERBIO VERBO PRONOMBRE ADVERBIO','sentence',4,'p_sentence','app.py',130),
+  ('sentence -> ADVERBIO VERBO PRONOMBRE ADVERBIO PUNTUACION','sentence',5,'p_sentence','app.py',131),
+  ('sentence -> sentence PUNTUACION','sentence',2,'p_sentence','app.py',132),
+  ('subject -> PRONOMBRE','subject',1,'p_subject_pronoun','app.py',150),
+  ('subject -> ARTICULO SUSTANTIVO','subject',2,'p_subject_article_noun','app.py',158),
+  ('subject -> ARTICULO ADJETIVO SUSTANTIVO','subject',3,'p_subject_article_adj_noun','app.py',168),
+  ('subject -> SUSTANTIVO','subject',1,'p_subject_noun','app.py',179),
+  ('predicate -> VERBO','predicate',1,'p_predicate_verb','app.py',188),
+  ('predicate -> VERBO complement','predicate',2,'p_predicate_verb_complement','app.py',197),
+  ('predicate -> VERBO ADVERBIO','predicate',2,'p_predicate_verb_adverb','app.py',209),
+  ('predicate -> VERBO PRONOMBRE','predicate',2,'p_predicate_verb_pronoun','app.py',219),
+  ('complement -> SUSTANTIVO','complement',1,'p_complement_noun','app.py',229),
+  ('complement -> ARTICULO SUSTANTIVO','complement',2,'p_complement_article_noun','app.py',238),
+  ('complement -> ADJETIVO','complement',1,'p_complement_adj','app.py',248),
+  ('complement -> PREPOSICION ARTICULO SUSTANTIVO','complement',3,'p_complement_prep_article_noun','app.py',257),
+  ('complement -> PREPOSICION SUSTANTIVO','complement',2,'p_complement_prep_noun','app.py',268),
+  ('complement -> ADVERBIO','complement',1,'p_complement_adverb','app.py',278),
+  ('interjection -> INTERJECCION','interjection',1,'p_interjection','app.py',287),
+  ('empty -> <empty>','empty',0,'p_empty','app.py',296),
 ]
